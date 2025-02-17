@@ -3,7 +3,7 @@ package d0211;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class swea2001 {
+public class SWEA2001 {
 	public static void main(String[] args) {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));) {
 			int testcase = Integer.parseInt(br.readLine());

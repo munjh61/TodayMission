@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class swea1218 {
+public class SWEA1218 {
 	static String[] stack;
 	static int top;
 

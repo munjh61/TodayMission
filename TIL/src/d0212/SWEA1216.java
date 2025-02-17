@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class swea1216 {
+public class SWEA1216 {
 	public static void main(String[] args) {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
 			for (int tc = 1; tc <= 10; tc++) {

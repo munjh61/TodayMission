@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class swea1210 {
+public class SWEA1210 {
 	public static void main(String[] args) {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));) {
 			for (int tc = 1; tc <= 10; tc++) {

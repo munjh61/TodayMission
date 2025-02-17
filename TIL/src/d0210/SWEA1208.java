@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class swea1208 {
+public class SWEA1208 {
 
 	public static void main(String[] args) {
 		
