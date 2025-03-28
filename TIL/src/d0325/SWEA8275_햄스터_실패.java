@@ -3,7 +3,7 @@ package d0325;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class SWEA8275 {
+public class SWEA8275_햄스터_실패 {
 	static int N; // 우리 개수
 	static int X; // 우리에 최대 몇마리
 	static int M; // 경근이의 기록
