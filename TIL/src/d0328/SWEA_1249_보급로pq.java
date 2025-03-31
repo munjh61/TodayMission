@@ -4,11 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
-public class SWEA_1249_보급로 {
+public class SWEA_1249_보급로pq {
+	
+	static class Edge implements Comparable<Edge>{
+		int x, y, time;
+
+		@Override
+		public int compareTo(Edge o) {
+			return this.time - o.time;
+		}
+		
+	}
+	
 	static int[][] map;
 	static int N;
 	static int[][] time;
+	static boolean[][] visited;
 	static final int INF = Integer.MAX_VALUE;
 
 	// 하 우 상 좌
@@ -25,6 +38,7 @@ public class SWEA_1249_보급로 {
 			N = Integer.parseInt(br.readLine());
 			map = new int[N][N];
 			time = new int[N][N];
+			visited = new boolean[N][N];
 			String str;
 			for (int row = 0; row < N; row++) {
 				str = br.readLine();
@@ -34,8 +48,9 @@ public class SWEA_1249_보급로 {
 				}
 			} // 입력 }
 			time[0][0] = 0;
-
-			move(0, 0);
+			visited[0][0] = true;
+			
+			move();
 
 			if (sb.length() != 0)
 				sb.append("\n");
@@ -45,21 +60,7 @@ public class SWEA_1249_보급로 {
 		System.out.println(sb);
 	}
 
-	static void move(int row, int col) {
-
-		if (row == N && col == N)
-			return;
-
-		for (int d = 0; d < 4; d++) {
-			int nrow = row + dx[d];
-			int ncol = col + dy[d];
-
-			if (nrow < 0 || ncol < 0 || nrow >= N || ncol >= N)
-				continue;
-			if (time[nrow][ncol] > time[row][col] + map[nrow][ncol]) {
-				time[nrow][ncol] = time[row][col] + map[nrow][ncol];
-				move(nrow, ncol);
-			}
-		}
+	static void move() {
+		PriorityQueue<Edge> pq = new PriorityQueue<>();
 	}
 }
