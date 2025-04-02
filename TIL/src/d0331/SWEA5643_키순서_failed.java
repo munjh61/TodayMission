@@ -1,67 +1,87 @@
 package d0331;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class SWEA5643_키순서_failed {
-	static int N; // 학생 수
-	static int M; // 비교 횟수
-	static int[][] dist;
-	static final int INF = Integer.MAX_VALUE;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 		for (int tc = 1; tc <= T; tc++) {
-			N = sc.nextInt();
-			M = sc.nextInt();
+			int N = sc.nextInt();
+			int M = sc.nextInt();
 
-			dist = new int[N + 1][N + 1];
-
+			int[] depthSF = new int[N + 1]; // smaller pick first
+			int[] depthTF = new int[N + 1]; // taller pick first
+			List<Integer>[] listSF = new ArrayList[N + 1];
+			List<Integer>[] listTF = new ArrayList[N + 1];
 			for (int i = 1; i <= N; i++) {
-				for (int j = 1; j <= N; j++) {
-					if (i != j)
-						dist[i][j] = INF;
+				listSF[i] = new ArrayList<>();
+				listTF[i] = new ArrayList<>();
+			}
+
+			for (int i = 0; i < M; i++) {
+				int small = sc.nextInt();
+				int tall = sc.nextInt();
+				depthSF[tall]++;
+				listSF[small].add(tall);
+				depthTF[small]++;
+				listTF[tall].add(small);
+			}
+			int unable = 0;
+			Queue<Integer> queueSF = new LinkedList<>();
+			for (int i = 1; i <= N; i++) {
+				if (depthSF[i] == 0) {
+					queueSF.add(i);
 				}
 			}
-
-			for (int m = 0; m < M; m++) {
-				int a = sc.nextInt();
-				int b = sc.nextInt();
-				// a < b
-				dist[a][b] = 1;
-			}
-
-			for (int k = 1; k <= N; k++) {
-				for (int s = 1; s <= N; s++) {
-					if (dist[s][k] == INF)
-						continue;
-					for (int e = 1; e <= N; e++) {
-						if (dist[k][e] == INF)
-							continue;
-						dist[s][e] = Math.min(dist[s][e], dist[s][k] + dist[k][e]);
+			while (!queueSF.isEmpty()) {
+				int curr = queueSF.poll();
+				if(queueSF.isEmpty())
+					break;
+				int next = queueSF.peek();
+				depthSF[next]--;
+				if (depthSF[next] != 0)
+					break;
+				else {
+					for(int i : listSF[curr]) {
+						depthSF[i]--;
+						if(depthSF[i] == 0) {
+							queueSF.add(i);
+						}
 					}
+					unable++;
 				}
 			}
-//			for (int i = 1; i <= N; i++) {
-//				for (int j = 1; j <= N; j++) {
-//					if(dist[i][j] == INF)
-//						System.out.print("* \t");
-//					else System.out.print(dist[i][j] + "\t");
-//				}
-//				System.out.println();
-//			}
-			int cnt = 0;
+			Queue<Integer> queueTF = new LinkedList<>();
 			for (int i = 1; i <= N; i++) {
-				for (int j = 1; j <= N; j++) {
-					if (dist[i][j] == INF || dist[j][i] == INF)
-						break;
-					cnt++;
+				if (depthTF[i] == 0) {
+					queueTF.add(i);
 				}
 			}
-			StringBuilder sb = new StringBuilder();
-			sb.append("#").append(tc).append(" ").append(cnt);
-			System.out.println(sb);
+			while (!queueTF.isEmpty()) {
+				int curr = queueTF.poll();
+				if(queueTF.isEmpty())
+					break;
+				int next = queueTF.peek();
+				depthTF[next]--;
+				if (depthTF[next] != 0)
+					break;
+				else {
+					for(int i : listTF[curr]) {
+						depthTF[i]--;
+						if(depthTF[i] == 0) {
+							queueTF.add(i);
+						}
+					}
+					unable++;
+				}
+			}
+			System.out.println(N - unable);
 		}
-
 	}
 }
